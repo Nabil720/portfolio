@@ -1,0 +1,6 @@
+*.pdf
+*.png
+!assets/**
+.git
+Dockerfile
+.dockerignore

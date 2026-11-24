@@ -1,0 +1,809 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Istiaque Faroque Nabil — DevOps & DevSecOps Engineer</title>
+<meta name="description" content="Istiaque Faroque Nabil — Cloud, DevOps & DevSecOps Engineer in Dhaka. Kubernetes, AWS, CI/CD, observability and infrastructure security.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07090d;
+  --bg-2:#0b0f15;
+  --panel:#0e131b;
+  --panel-2:#121925;
+  --line:#1c2533;
+  --line-2:#263245;
+  --text:#d9e2ee;
+  --muted:#8090a6;
+  --dim:#56647a;
+  --green:#3ef0a1;
+  --cyan:#38d6ff;
+  --amber:#ffc65c;
+  --red:#ff6b7f;
+  --violet:#a78bfa;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --sans:'Sora',system-ui,-apple-system,Segoe UI,sans-serif;
+  --radius:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--green);color:#04120b}
+
+/* ---------- background ---------- */
+.grid-bg{position:fixed;inset:0;z-index:-2;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:56px 56px;opacity:.35;
+  mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 30%,transparent 80%);
+  -webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 30%,transparent 80%)}
+.glow{position:fixed;z-index:-1;border-radius:50%;filter:blur(110px);opacity:.22;pointer-events:none}
+.glow.g1{width:520px;height:520px;background:var(--green);top:-180px;left:-120px}
+.glow.g2{width:460px;height:460px;background:var(--cyan);top:30%;right:-200px;opacity:.14}
+#matrix{position:fixed;inset:0;z-index:-1;opacity:.07;pointer-events:none}
+
+/* ---------- nav ---------- */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  background:rgba(7,9,13,.7);border-bottom:1px solid var(--line)}
+.nav-in{max-width:1180px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{font-family:var(--mono);font-weight:700;font-size:15px;display:flex;align-items:center;gap:8px}
+.logo .p{color:var(--green)}
+.logo .cur{width:8px;height:16px;background:var(--green);display:inline-block;animation:blink 1s steps(1) infinite}
+.nav-links{display:flex;gap:4px;font-family:var(--mono);font-size:13px}
+.nav-links a{padding:8px 12px;border-radius:8px;color:var(--muted);transition:.2s}
+.nav-links a:hover{color:var(--green);background:rgba(62,240,161,.07)}
+.nav-links a span{color:var(--dim)}
+@media(max-width:820px){.nav-links{display:none}}
+
+/* ---------- layout ---------- */
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+section{padding:110px 0 40px;position:relative}
+.sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:44px;flex-wrap:wrap}
+.sec-num{font-family:var(--mono);color:var(--green);font-size:14px}
+.sec-title{font-size:clamp(28px,4vw,40px);font-weight:700;letter-spacing:-.02em}
+.sec-line{flex:1;height:1px;background:linear-gradient(90deg,var(--line-2),transparent);min-width:60px}
+.sec-cmd{font-family:var(--mono);font-size:13px;color:var(--dim);width:100%}
+.sec-cmd b{color:var(--cyan);font-weight:500}
+
+/* ---------- hero ---------- */
+.hero{min-height:100vh;display:flex;align-items:center;padding-top:110px}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
+@media(max-width:960px){.hero-grid{grid-template-columns:1fr}}
+.status{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12.5px;color:var(--green);
+  border:1px solid rgba(62,240,161,.25);background:rgba(62,240,161,.06);padding:7px 14px;border-radius:999px;margin-bottom:28px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 rgba(62,240,161,.6);animation:pulse 2s infinite}
+.hero h1{font-size:clamp(40px,7vw,78px);line-height:1.02;font-weight:800;letter-spacing:-.035em;margin-bottom:22px}
+.hero h1 .grad{background:linear-gradient(100deg,var(--green) 10%,var(--cyan) 90%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.role{font-family:var(--mono);font-size:clamp(15px,2vw,19px);color:var(--muted);margin-bottom:26px;min-height:1.6em}
+.role .typed{color:var(--text)}
+.role .caret{display:inline-block;width:10px;height:1.1em;background:var(--cyan);vertical-align:-3px;margin-left:2px;animation:blink 1s steps(1) infinite}
+.hero p.lead{color:var(--muted);font-size:17px;max-width:560px;margin-bottom:36px;font-weight:300}
+.hero p.lead strong{color:var(--text);font-weight:600}
+.cta{display:flex;gap:14px;flex-wrap:wrap}
+.btn{font-family:var(--mono);font-size:14px;padding:14px 22px;border-radius:10px;display:inline-flex;align-items:center;gap:10px;transition:.25s;border:1px solid var(--line-2)}
+.btn.primary{background:var(--green);color:#03140c;border-color:var(--green);font-weight:700}
+.btn.primary:hover{box-shadow:0 10px 40px -8px rgba(62,240,161,.6);transform:translateY(-2px)}
+.btn.ghost:hover{border-color:var(--cyan);color:var(--cyan);transform:translateY(-2px)}
+.socials{display:flex;gap:10px;margin-top:34px}
+.socials a{width:42px;height:42px;border:1px solid var(--line-2);border-radius:10px;display:grid;place-items:center;color:var(--muted);transition:.2s}
+.socials a:hover{color:var(--green);border-color:var(--green);transform:translateY(-2px)}
+.socials svg{width:18px;height:18px}
+
+/* portrait */
+.portrait{position:relative;justify-self:center;width:min(380px,100%)}
+.portrait .frame{position:relative;border-radius:22px;overflow:hidden;border:1px solid var(--line-2);aspect-ratio:1/1.08;background:var(--panel)}
+.portrait img{width:100%;height:100%;object-fit:cover;filter:grayscale(.15) contrast(1.05);display:block}
+.portrait .frame::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(7,9,13,.85));}
+.portrait .scan{position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--green),transparent);box-shadow:0 0 18px var(--green);animation:scan 4s ease-in-out infinite;z-index:2}
+.portrait .corner{position:absolute;width:26px;height:26px;border:2px solid var(--green);z-index:3}
+.c1{top:-8px;left:-8px;border-right:0!important;border-bottom:0!important;border-radius:6px 0 0 0}
+.c2{top:-8px;right:-8px;border-left:0!important;border-bottom:0!important;border-radius:0 6px 0 0}
+.c3{bottom:-8px;left:-8px;border-right:0!important;border-top:0!important;border-radius:0 0 0 6px}
+.c4{bottom:-8px;right:-8px;border-left:0!important;border-top:0!important;border-radius:0 0 6px 0}
+.badge{position:absolute;z-index:4;font-family:var(--mono);font-size:12px;background:rgba(14,19,27,.92);border:1px solid var(--line-2);
+  padding:9px 13px;border-radius:10px;display:flex;align-items:center;gap:8px;backdrop-filter:blur(8px);box-shadow:0 12px 30px -10px #000}
+.badge.b1{top:22px;left:-38px;animation:float 6s ease-in-out infinite}
+.badge.b2{bottom:70px;right:-34px;animation:float 6s ease-in-out infinite 1.5s}
+.badge.b3{bottom:16px;left:20px;right:20px;justify-content:space-between;animation:none}
+.badge .ok{color:var(--green)} .badge .sh{color:var(--cyan)}
+@media(max-width:520px){.badge.b1{left:-6px}.badge.b2{right:-6px}}
+
+/* ---------- pipeline ---------- */
+.pipeline-wrap{margin-top:70px;border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(180deg,var(--panel),var(--bg-2));padding:22px 24px 26px}
+.pl-top{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:12.5px;color:var(--muted);margin-bottom:22px;gap:10px;flex-wrap:wrap}
+.pl-top .ref{color:var(--violet)}
+.pl-top .pass{color:var(--green)}
+.pipeline{display:grid;grid-template-columns:repeat(8,1fr);gap:0;position:relative}
+.stage{position:relative;text-align:center;font-family:var(--mono);font-size:11.5px;color:var(--dim);padding-top:4px}
+.stage .node{width:38px;height:38px;margin:0 auto 10px;border-radius:50%;border:2px solid var(--line-2);display:grid;place-items:center;background:var(--bg);position:relative;z-index:2;transition:.35s}
+.stage .node svg{width:16px;height:16px;opacity:.4;transition:.35s}
+.stage::before{content:"";position:absolute;top:23px;left:-50%;width:100%;height:2px;background:var(--line-2);z-index:1}
+.stage:first-child::before{display:none}
+.stage .fill{position:absolute;top:23px;left:-50%;width:0;height:2px;background:var(--green);z-index:1;box-shadow:0 0 10px var(--green);transition:width .45s linear}
+.stage:first-child .fill{display:none}
+.stage.done{color:var(--text)}
+.stage.done .node{border-color:var(--green);background:rgba(62,240,161,.1);box-shadow:0 0 0 5px rgba(62,240,161,.06)}
+.stage.done .node svg{opacity:1;color:var(--green)}
+.stage.done .fill{width:100%}
+.stage.sec.done .node{border-color:var(--amber);background:rgba(255,198,92,.1);box-shadow:0 0 0 5px rgba(255,198,92,.06)}
+.stage.sec.done .node svg{color:var(--amber)}
+.stage.run .node{border-color:var(--cyan);animation:ring 1s infinite}
+.stage.run .node svg{opacity:1;color:var(--cyan)}
+.stage small{display:block;color:var(--dim);font-size:10px;margin-top:2px}
+@media(max-width:720px){
+  .pipeline{grid-template-columns:repeat(4,1fr);row-gap:22px}
+  .stage:nth-child(5)::before,.stage:nth-child(5) .fill{display:none}
+}
+
+/* ---------- about ---------- */
+.about-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:34px}
+@media(max-width:900px){.about-grid{grid-template-columns:1fr}}
+.about-text p{color:var(--muted);font-size:16.5px;margin-bottom:18px;font-weight:300}
+.about-text p strong{color:var(--text);font-weight:600}
+.about-text .hl{color:var(--green);font-family:var(--mono);font-size:.92em}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:28px}
+.stat{border:1px solid var(--line);border-radius:12px;padding:18px;background:var(--panel)}
+.stat .n{font-size:30px;font-weight:800;letter-spacing:-.02em;background:linear-gradient(100deg,var(--green),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat .l{font-family:var(--mono);font-size:12px;color:var(--muted)}
+
+/* terminal */
+.term{border:1px solid var(--line-2);border-radius:var(--radius);background:#05070a;overflow:hidden;box-shadow:0 30px 80px -30px rgba(0,0,0,.8),0 0 0 1px rgba(62,240,161,.03)}
+.term-bar{display:flex;align-items:center;gap:8px;padding:12px 16px;background:var(--panel);border-bottom:1px solid var(--line)}
+.term-bar i{width:11px;height:11px;border-radius:50%;display:block}
+.term-bar i:nth-child(1){background:#ff5f57}.term-bar i:nth-child(2){background:#febc2e}.term-bar i:nth-child(3){background:#28c840}
+.term-bar span{margin-left:auto;margin-right:auto;font-family:var(--mono);font-size:12px;color:var(--dim);transform:translateX(-22px)}
+.term-body{padding:18px 20px 22px;font-family:var(--mono);font-size:13px;line-height:1.85;min-height:330px;color:#b9c6d6;overflow-x:auto}
+.term-body .pr{color:var(--green)} .term-body .pa{color:var(--cyan)}
+.term-body .k{color:var(--violet)} .term-body .s{color:var(--amber)} .term-body .c{color:var(--dim)}
+.term-body .ok{color:var(--green)} .term-body .w{color:var(--text)}
+.term-body .ln{white-space:pre}
+
+/* ---------- skills ---------- */
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media(max-width:960px){.skills-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.skills-grid{grid-template-columns:1fr}}
+.card{border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(180deg,var(--panel),var(--bg-2));padding:24px;position:relative;overflow:hidden;transition:.3s}
+.card::before{content:"";position:absolute;inset:0;background:radial-gradient(400px circle at var(--mx,50%) var(--my,0%),rgba(62,240,161,.09),transparent 40%);opacity:0;transition:.3s;pointer-events:none}
+.card:hover{border-color:var(--line-2);transform:translateY(-3px)}
+.card:hover::before{opacity:1}
+.card .ic{width:44px;height:44px;border-radius:11px;display:grid;place-items:center;margin-bottom:18px;border:1px solid var(--line-2);background:var(--bg)}
+.card .ic svg{width:21px;height:21px}
+.card h3{font-size:17px;font-weight:600;margin-bottom:4px}
+.card .kind{font-family:var(--mono);font-size:11.5px;color:var(--dim);margin-bottom:16px}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{font-family:var(--mono);font-size:12px;padding:5px 10px;border-radius:7px;border:1px solid var(--line-2);color:var(--text);background:rgba(255,255,255,.015);transition:.2s}
+.chip:hover{border-color:var(--green);color:var(--green)}
+.c-green{color:var(--green)}.c-cyan{color:var(--cyan)}.c-amber{color:var(--amber)}.c-red{color:var(--red)}.c-violet{color:var(--violet)}
+
+/* marquee */
+.marquee{margin-top:40px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:18px 0;overflow:hidden;
+  mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.mq-track{display:flex;gap:48px;width:max-content;animation:mq 38s linear infinite;font-family:var(--mono);font-size:15px;color:var(--dim)}
+.mq-track span{display:flex;align-items:center;gap:48px;white-space:nowrap}
+.mq-track span::after{content:"◆";color:var(--line-2);font-size:10px}
+
+/* ---------- experience ---------- */
+.exp{display:grid;grid-template-columns:260px 1fr;gap:36px;border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(180deg,var(--panel),var(--bg-2));padding:34px;position:relative;overflow:hidden}
+@media(max-width:820px){.exp{grid-template-columns:1fr;padding:24px}}
+.exp-side .co{font-size:22px;font-weight:700;letter-spacing:-.01em}
+.exp-side .grp{color:var(--muted);font-size:14px;margin-bottom:16px}
+.exp-side .role-t{font-family:var(--mono);color:var(--green);font-size:14px;margin-bottom:6px}
+.exp-side .meta{font-family:var(--mono);font-size:12.5px;color:var(--dim);line-height:2}
+.exp-side .live{display:inline-flex;align-items:center;gap:8px;margin-top:16px;font-family:var(--mono);font-size:12px;color:var(--green);border:1px solid rgba(62,240,161,.25);padding:5px 11px;border-radius:999px}
+.commits{list-style:none;position:relative}
+.commits::before{content:"";position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:linear-gradient(var(--green),var(--line-2))}
+.commits li{position:relative;padding-left:34px;margin-bottom:20px}
+.commits li:last-child{margin-bottom:0}
+.commits li::before{content:"";position:absolute;left:0;top:6px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:2px solid var(--green)}
+.commits .hash{font-family:var(--mono);font-size:11.5px;color:var(--amber);margin-right:8px}
+.commits .tag{font-family:var(--mono);font-size:11px;padding:2px 8px;border-radius:5px;border:1px solid var(--line-2);color:var(--cyan);margin-left:6px;white-space:nowrap}
+.commits .tag.sec{color:var(--amber);border-color:rgba(255,198,92,.3)}
+.commits p{color:var(--muted);font-size:15px;margin-top:4px;font-weight:300}
+.commits p b{color:var(--text);font-weight:600}
+
+/* ---------- projects ---------- */
+.proj-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:20px}
+@media(max-width:900px){.proj-grid{grid-template-columns:1fr}}
+.proj{padding:30px;display:flex;flex-direction:column}
+.proj .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;font-family:var(--mono);font-size:12px;color:var(--dim)}
+.proj .top .type{color:var(--green);border:1px solid rgba(62,240,161,.25);padding:4px 10px;border-radius:6px}
+.proj h3{font-size:22px;margin-bottom:12px;letter-spacing:-.01em;line-height:1.3}
+.proj p{color:var(--muted);font-size:15px;margin-bottom:14px;font-weight:300}
+.proj p b{color:var(--text);font-weight:600}
+.proj .chips{margin-top:auto;padding-top:14px}
+/* architecture diagram */
+.arch{margin:8px 0 18px;border:1px dashed var(--line-2);border-radius:12px;padding:16px;background:rgba(0,0,0,.25)}
+.arch svg{width:100%;max-width:620px;margin:0 auto;height:auto;display:block}
+.arch text{font-family:var(--mono);font-size:10.5px;fill:var(--text)}
+.arch .lbl{fill:var(--dim);font-size:9px}
+.arch .flow{stroke-dasharray:4 4;animation:dash 1.2s linear infinite}
+/* model bars */
+.bars{margin:6px 0 18px}
+.bar{display:grid;grid-template-columns:52px 1fr;align-items:center;gap:12px;font-family:var(--mono);font-size:12px;margin-bottom:10px;color:var(--muted)}
+.bar .tr{height:8px;border-radius:99px;background:var(--line);overflow:hidden}
+.bar .fl{height:100%;border-radius:99px;background:var(--line-2);width:0;transition:width 1.4s cubic-bezier(.2,.8,.2,1)}
+.bar.best{color:var(--green)}
+.bar.best .fl{background:linear-gradient(90deg,var(--green),var(--cyan));box-shadow:0 0 12px rgba(62,240,161,.5)}
+.bars .note{font-family:var(--mono);font-size:11px;color:var(--dim);margin-top:6px}
+
+.proj.wide{grid-column:span 2}
+@media(max-width:900px){.proj.wide{grid-column:auto}}
+.proj.hide{display:none}
+.thesis .bars{max-width:620px}
+.proj-grid{grid-template-columns:repeat(2,1fr)}
+@media(max-width:900px){.proj-grid{grid-template-columns:1fr}}
+.repo-link{color:var(--cyan);transition:.2s}
+.repo-link:hover{color:var(--green)}
+.gh-inline{color:var(--green);border-bottom:1px dashed rgba(62,240,161,.4)}
+.links{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px;font-family:var(--mono);font-size:12.5px}
+.links a{color:var(--cyan)}.links a:hover{color:var(--green)}
+code{font-family:var(--mono);font-size:.88em;color:var(--green);background:rgba(62,240,161,.08);padding:1px 6px;border-radius:5px}
+
+/* featured */
+.featured{display:grid;grid-template-columns:1.25fr 1fr;gap:34px;padding:34px;margin-bottom:28px;border-color:rgba(62,240,161,.25);
+  background:radial-gradient(700px circle at 0% 0%,rgba(62,240,161,.07),transparent 50%),linear-gradient(180deg,var(--panel),var(--bg-2))}
+@media(max-width:900px){.featured{grid-template-columns:1fr;padding:24px}}
+.featured .top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:18px;font-family:var(--mono);font-size:12px}
+.featured .top .type{color:#03140c;background:var(--green);padding:4px 10px;border-radius:6px;font-weight:700}
+.featured h3{font-size:clamp(22px,2.6vw,28px);line-height:1.25;letter-spacing:-.015em;margin-bottom:14px}
+.featured p{color:var(--muted);font-weight:300;margin-bottom:16px}
+.featured p b,.ticks b{color:var(--text);font-weight:600}
+.ticks{list-style:none;margin-bottom:20px}
+.ticks li{position:relative;padding-left:26px;color:var(--muted);font-size:14.5px;margin-bottom:10px;font-weight:300}
+.ticks li::before{content:"✓";position:absolute;left:0;top:0;color:var(--green);font-family:var(--mono);font-weight:700}
+.flow{border:1px solid var(--line-2);border-radius:12px;background:rgba(0,0,0,.3);padding:18px}
+.fstep{display:flex;align-items:center;gap:14px;font-family:var(--mono);font-size:13px}
+.fstep b{font-weight:600;color:var(--text)}
+.fstep small{display:block;color:var(--dim);font-size:11px}
+.fi{width:34px;height:34px;flex:none;border-radius:9px;border:1px solid var(--line-2);display:grid;place-items:center;background:var(--bg);font-size:15px}
+.farrow{width:2px;height:16px;margin:4px 0 4px 16px;background:linear-gradient(var(--green),transparent);position:relative;overflow:hidden}
+.farrow::after{content:"";position:absolute;left:0;width:2px;height:6px;background:var(--green);box-shadow:0 0 8px var(--green);animation:drop 1.4s linear infinite}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.metric{border:1px solid var(--line);border-radius:10px;padding:14px;background:var(--panel)}
+.metric .mv{font-size:24px;font-weight:800;letter-spacing:-.02em;color:var(--green)}
+.metric .ml{font-family:var(--mono);font-size:11px;color:var(--dim);line-height:1.4}
+
+/* filters */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.filters button{font-family:var(--mono);font-size:12.5px;padding:8px 14px;border-radius:8px;border:1px solid var(--line-2);background:transparent;color:var(--muted);cursor:pointer;transition:.2s}
+.filters button:hover{color:var(--text);border-color:var(--dim)}
+.filters button.on{color:#03140c;background:var(--green);border-color:var(--green);font-weight:700}
+
+/* live github */
+.gh-live{margin-top:28px;border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;background:var(--bg-2)}
+.gh-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:var(--mono);font-size:12.5px;color:var(--muted);margin-bottom:16px;align-items:center}
+.gh-head>span:first-child{display:flex;align-items:center;gap:10px}
+.gh-head b{color:var(--text);font-weight:500}
+.gh-meta{color:var(--green)}
+.gh-repos{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:820px){.gh-repos{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.gh-repos{grid-template-columns:1fr}}
+.gh-repo{border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-family:var(--mono);font-size:13px;transition:.2s;min-width:0}
+.gh-repo b{display:block;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gh-repo small{color:var(--dim);font-size:11px}
+.gh-repo:hover{border-color:var(--green);transform:translateY(-2px)}
+.gh-repo:hover b{color:var(--green)}
+
+/* ---------- security / achievements ---------- */
+.sec-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px}
+.ach{text-align:left}
+.ach .big{font-size:40px;font-weight:800;letter-spacing:-.03em;line-height:1;margin-bottom:10px}
+.ach h4{font-size:15px;font-weight:600;margin-bottom:6px}
+.ach p{font-family:var(--mono);font-size:12px;color:var(--dim)}
+.edu{margin-top:20px;display:flex;align-items:center;gap:22px;flex-wrap:wrap;padding:26px 30px}
+.edu .ic{margin:0}
+.edu .grow{flex:1;min-width:220px}
+.edu h3{font-size:18px}
+.edu .sub{color:var(--muted);font-size:14px}
+.edu .yr{font-family:var(--mono);font-size:13px;color:var(--green)}
+
+/* ---------- contact ---------- */
+.contact{border:1px solid var(--line-2);border-radius:22px;padding:clamp(30px,6vw,64px);text-align:center;position:relative;overflow:hidden;
+  background:radial-gradient(600px circle at 50% 0%,rgba(62,240,161,.12),transparent 60%),var(--panel)}
+.contact h2{font-size:clamp(30px,5vw,54px);font-weight:800;letter-spacing:-.03em;line-height:1.1;margin-bottom:16px}
+.contact p{color:var(--muted);max-width:520px;margin:0 auto 32px;font-weight:300}
+.contact .cta{justify-content:center}
+.contact .mail{font-family:var(--mono);color:var(--green);font-size:clamp(15px,2.4vw,20px);display:inline-block;margin-bottom:30px;border-bottom:1px dashed rgba(62,240,161,.4);padding-bottom:4px;word-break:break-all}
+footer{padding:50px 0 40px;text-align:center;font-family:var(--mono);font-size:12px;color:var(--dim)}
+footer .h{color:var(--green)}
+
+/* ---------- reveal ---------- */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
+.rv.in{opacity:1;transform:none}
+
+@keyframes blink{50%{opacity:0}}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(62,240,161,.6)}70%{box-shadow:0 0 0 10px rgba(62,240,161,0)}100%{box-shadow:0 0 0 0 rgba(62,240,161,0)}}
+@keyframes ring{0%{box-shadow:0 0 0 0 rgba(56,214,255,.5)}100%{box-shadow:0 0 0 12px rgba(56,214,255,0)}}
+@keyframes scan{0%,100%{top:4%}50%{top:94%}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes mq{to{transform:translateX(-50%)}}
+@keyframes dash{to{stroke-dashoffset:-16}}
+@keyframes drop{from{top:-6px}to{top:16px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="glow g1"></div><div class="glow g2"></div>
+<canvas id="matrix"></canvas>
+
+<nav>
+  <div class="nav-in">
+    <a href="#top" class="logo"><span class="p">nabil@devsecops</span>:~$ <span class="cur"></span></a>
+    <div class="nav-links">
+      <a href="#about"><span>01.</span>about</a>
+      <a href="#stack"><span>02.</span>stack</a>
+      <a href="#experience"><span>03.</span>experience</a>
+      <a href="#projects"><span>04.</span>projects</a>
+      <a href="#security"><span>05.</span>security</a>
+      <a href="#contact"><span>06.</span>contact</a>
+    </div>
+  </div>
+</nav>
+
+<main id="top">
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="rv">
+        <div class="status"><span class="dot"></span>status: running · DevOps Engineer @ Paynext</div>
+        <h1>Istiaque<br>Faroque <span class="grad">Nabil</span></h1>
+        <div class="role">&gt; <span class="typed" id="typed"></span><span class="caret"></span></div>
+        <p class="lead">I build and secure <strong>cloud-native infrastructure</strong>: Kubernetes clusters, CI/CD pipelines, observability stacks and the security layers that protect them. <strong>Ship fast, stay secure.</strong></p>
+        <div class="cta">
+          <a class="btn primary" href="#projects">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+            ./view-projects.sh</a>
+          <a class="btn ghost" href="assets/Istiaque_Faroque_Nabil_CV.pdf" download>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            curl -O resume.pdf</a>
+        </div>
+        <div class="socials">
+          <a href="https://www.linkedin.com/in/istiaque-nabil/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>
+          <a href="https://github.com/Nabil720" target="_blank" rel="noopener" aria-label="GitHub" id="gh-link"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.07 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .32.21.69.82.57A12 12 0 0 0 12 .3"/></svg></a>
+          <a href="mailto:nabilfaruk6@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></a>
+        </div>
+      </div>
+
+      <div class="portrait rv">
+        <span class="corner c1"></span><span class="corner c2"></span><span class="corner c3"></span><span class="corner c4"></span>
+        <div class="frame">
+          <div class="scan"></div>
+          <img src="assets/nabil.png" alt="Portrait of Istiaque Faroque Nabil">
+        </div>
+        <div class="badge b1"><span class="ok">●</span> k8s cluster: healthy</div>
+        <div class="badge b2"><span class="sh">🛡</span> 0 critical CVEs</div>
+        <div class="badge b3"><span>📍 Dhaka, BD</span><span class="ok">● online</span></div>
+      </div>
+    </div>
+
+    <!-- pipeline -->
+    <div class="pipeline-wrap rv">
+      <div class="pl-top">
+        <span>pipeline <span class="ref">#nabil/main</span> · triggered by push</span>
+        <span id="pl-status">⏳ running…</span>
+      </div>
+      <div class="pipeline" id="pipeline">
+        <div class="stage"><span class="fill"></span><div class="node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>plan<small>jira</small></div>
+        <div class="stage"><span class="fill"></span><div class="node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>code<small>git</small></div>
+        <div class="stage"><span class="fill"></span><div class="node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div>build<small>docker</small></div>
+        <div class="stage"><span class="fill"></span><div class="node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 2v6L4 18a2 2 0 0 0 1.8 3h12.4a2 2 0 0 0 1.8-3L15 8V2"/><line x1="8" y1="2" x2="16" y2="2"/></svg></div>test<small>ci</small></div>
+        <div class="stage sec"><span class="fill"></span><div class="node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.6" y2="16.6"/></svg></div>scan<small>sast/dast</small></div>
+        <div class="stage sec"><span class="fill"></span><div class="node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>secrets<small>vault</small></div>
+        <div class="stage"><span class="fill"></span><div class="node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/></svg></div>deploy<small>argocd</small></div>
+        <div class="stage"><span class="fill"></span><div class="node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>monitor<small>grafana</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="sec-num">01.</span><h2 class="sec-title">whoami</h2><span class="sec-line"></span>
+      <div class="sec-cmd">$ <b>cat</b> ~/about.md</div>
+    </div>
+    <div class="about-grid">
+      <div class="about-text rv">
+        <p>I'm a <strong>Cloud &amp; DevOps Engineer</strong> based in Dhaka. I work hands-on with containers, orchestration and CI/CD. My daily work covers <strong>Linux administration, Docker, Kubernetes, AWS</strong>, and observability with <strong>Prometheus &amp; Grafana</strong>.</p>
+        <p>I care most about <span class="hl">DevSecOps</span>. Security should be built into the pipeline from the start, not added at the end. That means container security, secret management, WAF policies and hardened infrastructure, all automated.</p>
+        <p>Outside work I run a <strong>homelab</strong>: a 3-node kubeadm cluster on Vagrant VMs with Cilium, Argo CD and a full Prometheus/Loki stack. I use it to test new ideas before they go to production.</p>
+        <p>I have a CS degree from <strong>MIST</strong>, a thesis on spyware detection, and a background in CTF competitions. So I look at infrastructure the way an attacker would, and I build it so it scales and stays reliable.</p>
+        <div class="stats">
+          <div class="stat"><div class="n" data-count="700">0</div><div class="l">problems solved · codeforces</div></div>
+          <div class="stat"><div class="n" data-count="1182">0</div><div class="l">codeforces rating</div></div>
+          <div class="stat"><div class="n" data-count="32" id="stat-repos">0</div><div class="l">public repos · github</div></div>
+          <div class="stat"><div class="n">#4</div><div class="l">MIST CyberTron 2025</div></div>
+        </div>
+      </div>
+      <div class="term rv">
+        <div class="term-bar"><i></i><i></i><i></i><span>nabil@prod-cluster: ~</span></div>
+        <div class="term-body" id="term"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STACK ================= -->
+<section id="stack">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="sec-num">02.</span><h2 class="sec-title">tech stack</h2><span class="sec-line"></span>
+      <div class="sec-cmd">$ <b>kubectl</b> get skills --all-namespaces</div>
+    </div>
+    <div class="skills-grid">
+      <div class="card rv">
+        <div class="ic c-cyan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
+        <h3>Containers &amp; Orchestration</h3><div class="kind">ns: workloads</div>
+        <div class="chips"><span class="chip">Docker</span><span class="chip">Kubernetes</span><span class="chip">kubeadm</span><span class="chip">Helm</span><span class="chip">Kustomize</span><span class="chip">Cilium</span><span class="chip">MetalLB</span></div>
+      </div>
+      <div class="card rv">
+        <div class="ic c-amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg></div>
+        <h3>Cloud, CI/CD &amp; GitOps</h3><div class="kind">ns: delivery</div>
+        <div class="chips"><span class="chip">AWS</span><span class="chip">GitLab CI</span><span class="chip">GitHub Actions</span><span class="chip">Jenkins</span><span class="chip">Argo CD</span><span class="chip">Git</span></div>
+      </div>
+      <div class="card rv">
+        <div class="ic c-red"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <h3>Security</h3><div class="kind">ns: devsecops</div>
+        <div class="chips"><span class="chip">HashiCorp Vault</span><span class="chip">Vault Injector</span><span class="chip">RBAC</span><span class="chip">WAF</span><span class="chip">OWASP</span><span class="chip">Pen Testing</span><span class="chip">Container Security</span></div>
+      </div>
+      <div class="card rv">
+        <div class="ic c-green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <h3>Monitoring &amp; Observability</h3><div class="kind">ns: observability</div>
+        <div class="chips"><span class="chip">Prometheus</span><span class="chip">Grafana</span><span class="chip">Loki</span><span class="chip">Fluent Bit</span><span class="chip">Elastic APM</span><span class="chip">ELK</span><span class="chip">Filebeat</span></div>
+      </div>
+      <div class="card rv">
+        <div class="ic c-violet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg></div>
+        <h3>Infra &amp; Virtualization</h3><div class="kind">ns: platform</div>
+        <div class="chips"><span class="chip">Linux</span><span class="chip">Shell Scripting</span><span class="chip">VMware vCenter</span><span class="chip">ESXi</span><span class="chip">Proxmox</span><span class="chip">Vagrant</span><span class="chip">Nginx</span><span class="chip">F5 BIG-IP</span></div>
+      </div>
+      <div class="card rv">
+        <div class="ic c-cyan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+        <h3>Programming</h3><div class="kind">ns: code</div>
+        <div class="chips"><span class="chip">Python</span><span class="chip">Go</span><span class="chip">Bash</span><span class="chip">C++</span><span class="chip">C</span><span class="chip">DSA</span></div>
+      </div>
+    </div>
+    <div class="marquee">
+      <div class="mq-track" id="mq"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= EXPERIENCE ================= -->
+<section id="experience">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="sec-num">03.</span><h2 class="sec-title">experience</h2><span class="sec-line"></span>
+      <div class="sec-cmd">$ <b>git log</b> --author="nabil" --oneline</div>
+    </div>
+    <div class="exp rv">
+      <div class="exp-side">
+        <div class="co">Paynext</div>
+        <div class="grp">US-Bangla Group</div>
+        <div class="role-t">DevOps Engineer</div>
+        <div class="meta">📅 Jul 2025 — Present<br>📍 Dhaka, Bangladesh</div>
+        <div class="live"><span class="dot"></span>current deployment</div>
+      </div>
+      <ul class="commits">
+        <li><span class="hash">a3f9c21</span><span class="tag">k8s</span><p>Deployed, configured and managed containerized applications with <b>Docker &amp; Kubernetes</b> for scalability, availability and reliability.</p></li>
+        <li><span class="hash">7be04d8</span><span class="tag">aws</span><p>Managed and maintained <b>AWS services</b> that run the company's cloud infrastructure and applications.</p></li>
+        <li><span class="hash">c51e6aa</span><span class="tag">ci/cd</span><p>Built, maintained and optimized <b>CI/CD pipelines</b> that automate build, test and deploy, making releases faster.</p></li>
+        <li><span class="hash">19d2f0b</span><span class="tag">infra</span><p>Ran enterprise server infrastructure on <b>VMware vCenter</b>: VM provisioning, resource allocation, performance and health monitoring.</p></li>
+        <li><span class="hash">e8a7713</span><span class="tag">network</span><p>Configured and monitored <b>F5 BIG-IP</b> for application delivery, traffic management, load balancing and high availability.</p></li>
+        <li><span class="hash">4c0b9e5</span><span class="tag sec">security</span><p>Administered <b>Web Application Firewall (WAF)</b> solutions: monitored security events and tuned protection policies against web-based threats.</p></li>
+        <li><span class="hash">0f6d3a2</span><span class="tag">observability</span><p>Built and maintained <b>Prometheus &amp; Grafana</b> dashboards for real-time infrastructure visibility and performance analysis.</p></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROJECTS ================= -->
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="sec-num">04.</span><h2 class="sec-title">projects</h2><span class="sec-line"></span>
+      <div class="sec-cmd">$ <b>ls</b> -la ~/projects · <a href="https://github.com/Nabil720" target="_blank" rel="noopener" class="gh-inline">github.com/Nabil720 ↗</a></div>
+    </div>
+
+    <!-- featured: Cloudly -->
+    <article class="card featured rv">
+      <div class="feat-l">
+        <div class="top"><span class="type">featured · gitops platform</span><a href="https://github.com/Nabil720/Cloudly" target="_blank" rel="noopener" class="repo-link">Nabil720/Cloudly ↗</a></div>
+        <h3>Cloudly: a full GitOps platform on a self-built Kubernetes cluster</h3>
+        <p>A React + Node.js app with PostgreSQL and Redis, running on my own <b>3-node kubeadm cluster</b> (Vagrant VMs, Kubernetes v1.34, <b>Cilium</b> CNI). Covers the whole delivery lifecycle, from <b>GitHub Actions</b> CI to <b>Argo CD</b> GitOps, with <b>Kustomize</b> overlays for dev, preprod and release.</p>
+        <ul class="ticks">
+          <li><b>Images tagged branch + commit SHA</b>, and rollback is just a <code>git revert</code>. CI never gets cluster access: Argo CD pulls changes from inside the cluster.</li>
+          <li><b>Observability:</b> kube-prometheus-stack with a custom Grafana dashboard (RPS, error rate, p95), 5 alert rules, and Fluent Bit → Loki for logs.</li>
+          <li><b>Hardened:</b> internal ClusterIP-only services, non-root multi-stage images, liveness/readiness probes, and read/write DB routing.</li>
+        </ul>
+        <div class="chips"><span class="chip">kubeadm</span><span class="chip">Cilium</span><span class="chip">Argo CD</span><span class="chip">Kustomize</span><span class="chip">GitHub Actions</span><span class="chip">Helm</span><span class="chip">Prometheus</span><span class="chip">Loki</span><span class="chip">Fluent Bit</span><span class="chip">PostgreSQL</span><span class="chip">Redis</span></div>
+      </div>
+      <div class="feat-r">
+        <div class="flow">
+          <div class="fstep"><span class="fi c-violet">⎇</span><div><b>git push</b><small>main · pre-release/v* · release/v*</small></div></div>
+          <div class="farrow"></div>
+          <div class="fstep"><span class="fi c-cyan">⚙</span><div><b>GitHub Actions</b><small>build → push nanil0034/cloudly-*:&lt;sha&gt;</small></div></div>
+          <div class="farrow"></div>
+          <div class="fstep"><span class="fi c-amber">✎</span><div><b>bump tag</b><small>k8s/overlays/&lt;env&gt;</small></div></div>
+          <div class="farrow"></div>
+          <div class="fstep"><span class="fi c-green">⟳</span><div><b>Argo CD sync</b><small>dev · preprod · release</small></div></div>
+        </div>
+        <div class="metrics">
+          <div class="metric"><div class="mv">2→6</div><div class="ml">HPA pods under load test</div></div>
+          <div class="metric"><div class="mv">80/100</div><div class="ml">burst requests rate-limited (429)</div></div>
+          <div class="metric"><div class="mv">3</div><div class="ml">envs via Kustomize overlays</div></div>
+          <div class="metric"><div class="mv">5</div><div class="ml">Prometheus alert rules</div></div>
+        </div>
+      </div>
+    </article>
+
+    <div class="filters rv" id="filters">
+      <button class="on" data-f="all">all</button>
+      <button data-f="k8s">kubernetes</button>
+      <button data-f="sec">security</button>
+      <button data-f="cicd">ci/cd</button>
+      <button data-f="obs">observability</button>
+      <button data-f="ml">research</button>
+    </div>
+
+    <div class="proj-grid" id="proj-grid">
+      <!-- Kindergarten DevSecOps -->
+      <article class="card proj wide rv" data-tags="k8s sec cicd obs">
+        <div class="top"><span class="type">devsecops · 2025</span><a href="https://github.com/Nabil720/Cncf" target="_blank" rel="noopener" class="repo-link">Nabil720/Cncf ↗</a></div>
+        <h3>Kindergarten Registry: Vault-secured Go microservices</h3>
+        <p><b>Go microservices</b> (student / teacher / employee) with a React frontend and MongoDB, deployed to Kubernetes through <b>GitLab CI</b>, <b>Jenkins</b> and a separate <b>GitOps manifests repo</b>.</p>
+        <div class="arch">
+          <svg viewBox="0 0 520 170" aria-label="Architecture: CI builds and deploys to Kubernetes; Vault injects secrets; Elastic APM traces services">
+            <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#3ef0a1"/></marker></defs>
+            <rect x="6" y="62" width="92" height="44" rx="8" fill="#0e131b" stroke="#a78bfa"/>
+            <text x="52" y="82" text-anchor="middle">CI/CD</text><text x="52" y="96" text-anchor="middle" class="lbl">gitlab · jenkins</text>
+            <line x1="100" y1="84" x2="150" y2="84" stroke="#3ef0a1" stroke-width="1.5" class="flow" marker-end="url(#ar)"/>
+            <rect x="152" y="12" width="250" height="146" rx="12" fill="none" stroke="#38d6ff" stroke-dasharray="3 3"/>
+            <text x="164" y="30" class="lbl">kubernetes cluster</text>
+            <rect x="166" y="40" width="72" height="34" rx="7" fill="#0e131b" stroke="#263245"/><text x="202" y="61" text-anchor="middle">React</text>
+            <rect x="252" y="40" width="64" height="34" rx="7" fill="#0e131b" stroke="#263245"/><text x="284" y="61" text-anchor="middle">svc-stu</text>
+            <rect x="326" y="40" width="64" height="34" rx="7" fill="#0e131b" stroke="#263245"/><text x="358" y="61" text-anchor="middle">svc-tch</text>
+            <rect x="252" y="84" width="64" height="34" rx="7" fill="#0e131b" stroke="#263245"/><text x="284" y="105" text-anchor="middle">svc-emp</text>
+            <rect x="326" y="84" width="64" height="34" rx="7" fill="#0e131b" stroke="#263245"/><text x="358" y="105" text-anchor="middle">MongoDB</text>
+            <rect x="166" y="84" width="72" height="34" rx="7" fill="#0e131b" stroke="#ffc65c"/><text x="202" y="100" text-anchor="middle">vault</text><text x="202" y="112" text-anchor="middle" class="lbl">injector</text>
+            <text x="276" y="146" text-anchor="middle" class="lbl">go microservices · sidecar secrets</text>
+            <line x1="404" y1="84" x2="436" y2="84" stroke="#3ef0a1" stroke-width="1.5" class="flow" marker-end="url(#ar)"/>
+            <rect x="438" y="34" width="76" height="40" rx="8" fill="#0e131b" stroke="#3ef0a1"/><text x="476" y="52" text-anchor="middle">Elastic</text><text x="476" y="65" text-anchor="middle" class="lbl">APM traces</text>
+            <rect x="438" y="94" width="76" height="40" rx="8" fill="#0e131b" stroke="#ffc65c"/><text x="476" y="112" text-anchor="middle">Vault</text><text x="476" y="125" text-anchor="middle" class="lbl">kv-v2</text>
+          </svg>
+        </div>
+        <p>Secrets sit in <b>HashiCorp Vault KV-v2</b>, with a <b>least-privilege read-only policy and token per service</b>, and the <b>Vault Agent Injector</b> delivers them, so nothing is hardcoded. <b>Elastic APM</b> traces requests across services. There is also a polyglot version with Go, Python and Spring Boot services.</p>
+        <div class="chips"><span class="chip">Go</span><span class="chip">React</span><span class="chip">MongoDB</span><span class="chip">Vault</span><span class="chip">Kubernetes</span><span class="chip">GitLab CI</span><span class="chip">Jenkins</span><span class="chip">Elastic APM</span></div>
+        <div class="links"><a href="https://github.com/Nabil720/Kindergarten-registry_GitOps" target="_blank" rel="noopener">gitops repo ↗</a><a href="https://github.com/Nabil720/Linux_Docker_k8s_Deployment" target="_blank" rel="noopener">jenkins pipeline ↗</a></div>
+      </article>
+
+      <!-- Vault lab -->
+      <article class="card proj rv" data-tags="sec">
+        <div class="top"><span class="type">security lab</span><a href="https://github.com/Nabil720/Hashicorp-Vault" target="_blank" rel="noopener" class="repo-link">Hashicorp-Vault ↗</a></div>
+        <h3>HashiCorp Vault: from install to disaster recovery</h3>
+        <p>A 3-node Vault cluster built with Vagrant. Covers apt and binary installs, <b>KMS auto-unseal</b>, secret engine setup, the <b>Kubernetes Vault Injector</b>, and <b>backup &amp; restore</b> runbooks.</p>
+        <div class="chips"><span class="chip">Vault</span><span class="chip">KMS</span><span class="chip">Vagrant</span><span class="chip">Backup/DR</span></div>
+      </article>
+
+      <!-- Kubernetes lab -->
+      <article class="card proj rv" data-tags="k8s">
+        <div class="top"><span class="type">platform lab</span><a href="https://github.com/Nabil720/Kubernetes" target="_blank" rel="noopener" class="repo-link">Kubernetes ↗</a></div>
+        <h3>Kubernetes from scratch: single &amp; multi-master</h3>
+        <p>Builds <b>kubeadm</b> clusters (single and multi-master) plus an NFS server with Vagrant. Hands-on work on <b>MetalLB</b>, Ingress, StatefulSets, PV/PVC, HPA, taints &amp; affinity, quotas, and <b>RBAC users with TLS certificates</b>.</p>
+        <div class="chips"><span class="chip">kubeadm</span><span class="chip">MetalLB</span><span class="chip">NFS</span><span class="chip">RBAC</span><span class="chip">StatefulSet</span></div>
+      </article>
+
+      <!-- LogicMatrix -->
+      <article class="card proj rv" data-tags="k8s cicd">
+        <div class="top"><span class="type">ci/cd · 2026</span><a href="https://github.com/Nabil720/LogicMatrix" target="_blank" rel="noopener" class="repo-link">LogicMatrix ↗</a></div>
+        <h3>LogicMatrix: GitHub Actions → Kubernetes</h3>
+        <p>A Go API with an Nginx frontend on a 3-node v1.34 cluster. Every push to main <b>builds and pushes images</b>, <b>updates the manifest tags</b> to the commit SHA, and commits them back.</p>
+        <div class="chips"><span class="chip">Go</span><span class="chip">Nginx</span><span class="chip">GitHub Actions</span><span class="chip">Ingress</span></div>
+      </article>
+
+      <!-- APM / ELK -->
+      <article class="card proj rv" data-tags="obs">
+        <div class="top"><span class="type">observability</span><a href="https://github.com/Nabil720/APM" target="_blank" rel="noopener" class="repo-link">APM ↗</a></div>
+        <h3>Elastic APM &amp; ELK for Java and Node apps</h3>
+        <p>Instrumented <b>Java</b> and <b>Node.js</b> services with <b>Elastic APM</b>, and shipped their logs with <b>Filebeat</b> into the ELK stack for tracing and log analysis.</p>
+        <div class="chips"><span class="chip">Elasticsearch</span><span class="chip">Kibana</span><span class="chip">Filebeat</span><span class="chip">APM</span></div>
+      </article>
+
+      <!-- Event-driven -->
+      <article class="card proj rv" data-tags="cicd">
+        <div class="top"><span class="type">microservices</span><a href="https://github.com/Nabil720/OneFrontendTwoBackend_ToDoApp" target="_blank" rel="noopener" class="repo-link">ToDoApp ↗</a></div>
+        <h3>Polyglot &amp; event-driven microservices</h3>
+        <p>One React frontend with two backends (Node.js auth + Go todos) on MongoDB, fully containerized. There are also variants with <b>Kafka</b> and <b>RabbitMQ</b> messaging.</p>
+        <div class="chips"><span class="chip">Go</span><span class="chip">Node.js</span><span class="chip">Kafka</span><span class="chip">RabbitMQ</span><span class="chip">Compose</span></div>
+      </article>
+
+      <!-- Bash -->
+      <article class="card proj rv" data-tags="cicd">
+        <div class="top"><span class="type">automation</span><a href="https://github.com/Nabil720/Bash_Script" target="_blank" rel="noopener" class="repo-link">Bash_Script ↗</a></div>
+        <h3>Linux automation toolkit</h3>
+        <p>Shell scripts for everyday ops work: <b>log rotation</b>, systemd services, Nginx deployment, resource stats, remote file transfer, and finding &amp; moving large files.</p>
+        <div class="chips"><span class="chip">Bash</span><span class="chip">systemd</span><span class="chip">Nginx</span><span class="chip">Linux</span></div>
+      </article>
+
+      <!-- Thesis -->
+      <article class="card proj wide thesis rv" data-tags="ml sec">
+        <div class="top"><span class="type">thesis · 2024–25</span><span>ml-security/</span></div>
+        <h3>Detecting zero-click spyware with ML &amp; DL</h3>
+        <div class="bars" id="bars">
+          <div class="bar"><span>LR</span><div class="tr"><div class="fl" data-w="58"></div></div></div>
+          <div class="bar"><span>SVM</span><div class="tr"><div class="fl" data-w="67"></div></div></div>
+          <div class="bar"><span>CNN</span><div class="tr"><div class="fl" data-w="81"></div></div></div>
+          <div class="bar best"><span>LSTM ★</span><div class="tr"><div class="fl" data-w="95"></div></div></div>
+          <div class="note">// illustrative ranking — LSTM performed best</div>
+        </div>
+        <p>Used <b>Random Forest feature selection</b> on MTA-KDD'19. The results show deep learning is better at catching temporal attack patterns.</p>
+        <div class="chips"><span class="chip">Python</span><span class="chip">LSTM</span><span class="chip">CNN</span><span class="chip">Random Forest</span></div>
+      </article>
+    </div>
+
+    <!-- live github -->
+    <div class="gh-live rv">
+      <div class="gh-head">
+        <span><span class="dot"></span> live from <b>api.github.com/users/Nabil720</b></span>
+        <span id="gh-meta" class="gh-meta">32 public repos · since 2020</span>
+      </div>
+      <div class="gh-repos" id="gh-repos">
+        <a class="gh-repo" href="https://github.com/Nabil720/Cloudly" target="_blank" rel="noopener"><b>Cloudly</b><small>JavaScript</small></a>
+        <a class="gh-repo" href="https://github.com/Nabil720/LogicMatrix" target="_blank" rel="noopener"><b>LogicMatrix</b><small>HTML</small></a>
+        <a class="gh-repo" href="https://github.com/Nabil720/Kubernetes" target="_blank" rel="noopener"><b>Kubernetes</b><small>YAML</small></a>
+        <a class="gh-repo" href="https://github.com/Nabil720/Hashicorp-Vault" target="_blank" rel="noopener"><b>Hashicorp-Vault</b><small>HCL</small></a>
+        <a class="gh-repo" href="https://github.com/Nabil720/Cncf" target="_blank" rel="noopener"><b>Cncf</b><small>Go</small></a>
+        <a class="gh-repo" href="https://github.com/Nabil720/Linux_Docker_k8s_Deployment" target="_blank" rel="noopener"><b>Linux_Docker_k8s_Deployment</b><small>JavaScript</small></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SECURITY ================= -->
+<section id="security">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="sec-num">05.</span><h2 class="sec-title">security &amp; achievements</h2><span class="sec-line"></span>
+      <div class="sec-cmd">$ <b>nmap</b> -sV --script=achievements nabil</div>
+    </div>
+    <div class="sec-grid">
+      <div class="card ach rv"><div class="big c-green">#4</div><h4>MIST CyberTron 2025</h4><p>capture the flag</p></div>
+      <div class="card ach rv"><div class="big c-cyan">#18</div><h4>Inter-University CTF 2023</h4><p>organized by BUET</p></div>
+      <div class="card ach rv"><div class="big c-amber">JrPT</div><h4>TryHackMe Jr. Penetration Tester</h4><p>path completed</p></div>
+      <div class="card ach rv"><div class="big c-violet">WEB</div><h4>TryHackMe Web Fundamentals</h4><p>path completed</p></div>
+      <div class="card ach rv"><div class="big c-red">#6</div><h4>Soccer Bot Competition</h4><p>robotics</p></div>
+    </div>
+    <div class="card edu rv">
+      <div class="ic c-green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+      <div class="grow">
+        <h3>Military Institute of Science and Technology (MIST)</h3>
+        <div class="sub">BSc in Computer Science and Engineering · Dhaka, Bangladesh</div>
+      </div>
+      <div class="yr">Apr 2021 — Apr 2025</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section id="contact">
+  <div class="wrap">
+    <div class="contact rv">
+      <div class="sec-cmd" style="margin-bottom:18px">$ <b>ssh</b> hello@nabil --port 22</div>
+      <h2>Let's build something<br><span class="grad" style="background:linear-gradient(100deg,var(--green),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent">secure &amp; scalable.</span></h2>
+      <p>I'm open to DevOps, DevSecOps and Cloud roles, and to working together on infrastructure and security. My inbox is always open.</p>
+      <a class="mail" href="mailto:nabilfaruk6@gmail.com">nabilfaruk6@gmail.com</a>
+      <div class="cta">
+        <a class="btn primary" href="mailto:nabilfaruk6@gmail.com">→ say hello</a>
+        <a class="btn ghost" href="https://www.linkedin.com/in/istiaque-nabil/" target="_blank" rel="noopener">linkedin ↗</a>
+        <a class="btn ghost" href="https://github.com/Nabil720" target="_blank" rel="noopener">github ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div><span class="h">$</span> echo "designed &amp; deployed by Istiaque Faroque Nabil" · <span id="yr"></span></div>
+</footer>
+
+<script>
+// typed roles
+const roles=["DevOps Engineer","DevSecOps Enthusiast","Cloud & Kubernetes Engineer","Security-minded SRE","CTF Player"];
+const tEl=document.getElementById('typed');let ri=0,ci=0,del=false;
+(function type(){const w=roles[ri];tEl.textContent=w.slice(0,ci);
+  if(!del&&ci<w.length){ci++;setTimeout(type,70)}
+  else if(!del){del=true;setTimeout(type,1700)}
+  else if(ci>0){ci--;setTimeout(type,35)}
+  else{del=false;ri=(ri+1)%roles.length;setTimeout(type,300)}})();
+
+// pipeline animation
+const stages=[...document.querySelectorAll('#pipeline .stage')],plS=document.getElementById('pl-status');
+function runPipeline(){stages.forEach(s=>s.classList.remove('done','run'));plS.textContent='⏳ running…';plS.style.color='var(--cyan)';
+  let i=0;(function step(){if(i>0){stages[i-1].classList.remove('run');stages[i-1].classList.add('done')}
+    if(i<stages.length){stages[i].classList.add('run');i++;setTimeout(step,650)}
+    else{plS.textContent='✔ passed · deployed to production';plS.style.color='var(--green)';setTimeout(runPipeline,5000)}})()}
+
+// terminal
+const lines=[
+ ['<span class="pr">nabil@prod</span>:<span class="pa">~</span>$ <span class="w">kubectl get nodes</span>',300],
+ ['<span class="c">NAME      STATUS   ROLES           VERSION</span>',60],
+ ['master    <span class="ok">Ready</span>    control-plane   v1.34',60],
+ ['worker1   <span class="ok">Ready</span>    &lt;none&gt;          v1.34',60],
+ ['worker2   <span class="ok">Ready</span>    &lt;none&gt;          v1.34',400],
+ ['<span class="pr">nabil@prod</span>:<span class="pa">~</span>$ <span class="w">argocd app get cloudly-dev</span>',300],
+ ['Sync: <span class="ok">Synced</span>  Health: <span class="ok">Healthy</span>',500],
+ ['<span class="pr">nabil@prod</span>:<span class="pa">~</span>$ <span class="w">vault kv get secret/app</span>',300],
+ ['<span class="s">⚠ access denied: secrets are injected, not printed 😉</span>',500],
+ ['<span class="pr">nabil@prod</span>:<span class="pa">~</span>$ <span class="w">trivy image app/api:latest</span>',300],
+ ['Total: <span class="ok">0</span> (CRITICAL: <span class="ok">0</span>, HIGH: <span class="ok">0</span>)',500],
+ ['<span class="pr">nabil@prod</span>:<span class="pa">~</span>$ <span class="w">cat motto.yaml</span>',300],
+ ['<span class="k">shift_left</span>: <span class="s">true</span>',60],
+ ['<span class="k">automate</span>: <span class="s">everything</span>',60],
+ ['<span class="k">trust</span>: <span class="s">zero</span>',60],
+ ['<span class="pr">nabil@prod</span>:<span class="pa">~</span>$ <span class="caret" style="display:inline-block;width:8px;height:14px;background:var(--green);vertical-align:-2px;animation:blink 1s steps(1) infinite"></span>',0]
+];
+const term=document.getElementById('term');let termStarted=false;
+function runTerm(){if(termStarted)return;termStarted=true;let i=0;(function n(){if(i>=lines.length)return;const d=document.createElement('div');d.className='ln';d.innerHTML=lines[i][0];term.appendChild(d);setTimeout(n,lines[i][1]+120);i++})()}
+
+// counters
+function count(el){const t=+el.dataset.count,dur=1400,st=performance.now();(function f(now){const p=Math.min((now-st)/dur,1);el.textContent=Math.floor(t*(1-Math.pow(1-p,3)))+(p===1&&t===700?'+':'');if(p<1)requestAnimationFrame(f)})(st)}
+
+// reveal observer
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;const el=e.target;el.classList.add('in');
+  if(el.classList.contains('term'))runTerm();
+  el.querySelectorAll('[data-count]').forEach(count);
+  el.querySelectorAll('.fl').forEach(b=>b.style.width=b.dataset.w+'%');
+  if(el.classList.contains('pipeline-wrap'))runPipeline();
+  io.unobserve(el)}),{threshold:.18});
+document.querySelectorAll('.rv').forEach((el,i)=>{el.style.transitionDelay=(i%4)*70+'ms';io.observe(el)});
+
+// card spotlight
+document.querySelectorAll('.card').forEach(c=>c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();c.style.setProperty('--mx',e.clientX-r.left+'px');c.style.setProperty('--my',e.clientY-r.top+'px')}));
+
+// marquee
+const tools=["docker","kubernetes","aws","argo-cd","kustomize","cilium","github-actions","jenkins","loki","gitlab-ci","prometheus","grafana","elastic-apm","hashicorp-vault","f5-big-ip","waf","vcenter","proxmox","linux","owasp","go","python"];
+const mq=document.getElementById('mq');const half=tools.map(t=>`<span>${t}</span>`).join('');mq.innerHTML=half+half;
+
+// subtle matrix rain
+const cv=document.getElementById('matrix'),cx=cv.getContext('2d');let cols,drops;
+function size(){cv.width=innerWidth;cv.height=innerHeight;cols=Math.floor(cv.width/18);drops=Array(cols).fill(0).map(()=>Math.random()*-50)}
+size();addEventListener('resize',size);
+const chars='01{}[]<>/$#kubectl docker helm vault'.split('');
+if(!matchMedia('(prefers-reduced-motion: reduce)').matches){setInterval(()=>{cx.fillStyle='rgba(7,9,13,.12)';cx.fillRect(0,0,cv.width,cv.height);cx.fillStyle='#3ef0a1';cx.font='13px JetBrains Mono';
+  drops.forEach((y,i)=>{cx.fillText(chars[Math.floor(Math.random()*chars.length)],i*18,y*18);if(y*18>cv.height&&Math.random()>.975)drops[i]=0;drops[i]++})},70)}
+
+document.getElementById('yr').textContent=new Date().getFullYear();
+
+// project filters
+document.querySelectorAll('#filters button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('#filters button').forEach(x=>x.classList.toggle('on',x===b));
+  const f=b.dataset.f;
+  document.querySelectorAll('#proj-grid .proj').forEach(p=>{const show=f==='all'||p.dataset.tags.split(' ').includes(f);p.classList.toggle('hide',!show);if(show)p.classList.add('in')});
+}));
+
+// live GitHub data (falls back to the static list if the API is unreachable)
+(async()=>{
+  try{
+    const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    const [u,rs]=await Promise.all([
+      fetch('https://api.github.com/users/Nabil720').then(r=>{if(!r.ok)throw 0;return r.json()}),
+      fetch('https://api.github.com/users/Nabil720/repos?per_page=100&sort=pushed').then(r=>{if(!r.ok)throw 0;return r.json()})
+    ]);
+    document.getElementById('gh-meta').textContent=`${u.public_repos} public repos · since ${new Date(u.created_at).getFullYear()}`;
+    const st=document.getElementById('stat-repos');st.dataset.count=u.public_repos;if(st.textContent!=='0')st.textContent=u.public_repos;
+    const skip=new Set(['Nabil720','portfolio','Lerning1','Shop','Task','All_Project','DemoCICD','Jenkins-shared-laibraries']);
+    const list=rs.filter(r=>!r.fork&&!skip.has(r.name)).slice(0,6);
+    if(list.length){
+      const ago=d=>{const days=Math.round((Date.now()-new Date(d))/864e5);return days<1?'today':days<30?days+'d ago':days<365?Math.round(days/30)+'mo ago':Math.round(days/365)+'y ago'};
+      document.getElementById('gh-repos').innerHTML=list.map(r=>`<a class="gh-repo" href="${esc(r.html_url)}" target="_blank" rel="noopener"><b>${esc(r.name)}</b><small>${esc(r.language||'config')} · pushed ${ago(r.pushed_at)}</small></a>`).join('');
+    }
+  }catch(e){/* keep static fallback */}
+})();
+</script>
+</body>
+</html>
